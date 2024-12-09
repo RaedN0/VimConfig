@@ -1,0 +1,118 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+"" Base Settings
+"" ========================================================
+
+set scrolloff=5
+set linenumber
+set showmode
+set showcmd
+set relativenumber number
+
+set smartcase
+set incsearch
+set hlsearch
+
+set visualbell
+
+" Use system clipboard
+set clipboard+=unnamed
+
+let mapleader = " "
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+set notimeout
+set NERDTree
+
+" Do incremental searching.
+set incsearch
+
+
+"" Key mappings
+"" ========================================================
+
+imap jk <Esc>
+
+" Popup navigation
+inoremap <C-j> <Action>(PopupMenu-selectNext)
+inoremap <C-k> <Action>(PopupMenu-selectPrev)
+
+"" Leader commands
+"" ========================================================
+
+" Jump to declaration of object under cursor
+nnoremap <leader>gd :action GotoDeclaration<CR>
+
+" I use those for tests
+" Run tests depending on cursor position
+nnoremap <leader>ta :action RunClass<CR>
+nnoremap <leader>tf :action RerunFailedTests<CR>
+" Rerun last tests even when in another file
+nnoremap <leader>tl :action Rerun<CR>
+
+" Jump to tab by number
+nmap <leader>1 <Action>(GoToTab1)
+nmap <leader>2 <Action>(GoToTab2)
+nmap <leader>3 <Action>(GoToTab3)
+nmap <leader>4 <Action>(GoToTab4)
+nmap <leader>5 <Action>(GoToTab5)
+nmap <leader>6 <Action>(GoToTab6)
+nmap <leader>7 <Action>(GoToTab7)
+nmap <leader>8 <Action>(GoToTab8)
+nmap <leader>9 <Action>(GoToTab9)
+
+" Use gcc in normal mode to comment current line
+nnoremap gcc :action CommentByLineComment<CR>
+" Use gc in visual mode to comment out selected lines
+vnoremap gc :action CommentByLineComment<CR>
+
+" Move between files in split views
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+
+" Yank into black hole register by default (no more clipboard modifying when
+" deleting stuff)
+nnoremap x "_x
+nnoremap d "_d
+nnoremap dd "_dd
+nnoremap D "_D
+vnoremap d "_d
+nnoremap c "_c
+vnoremap c "_c
+" Since we now have no way to cut because of the settings above we
+" change the s to cut
+nnoremap s d
+vnoremap s d
+nnoremap ss dd
+nnoremap S D
+vnoremap p "_dP
+
+" Go to next / previous tab
+nmap <leader>l <Action>(NextTab)
+nmap <leader>h <Action>(PreviousTab)
+" Move tab position
+nmap <leader>< :tabm-1<CR>
+nmap <leader>> :tabm+1<CR>
+
+" Select current file in project view - actually very useful
+nnoremap <leader>gp :action SelectInProjectView<CR>
+
+" Code actions
+" Rename element under cursor
+nmap <leader>rn <Action>(RenameElement)
+" Reformat current file
+nmap <leader>rc <Action>(ReformatCode)
+" Optimize imports in current file
+nnoremap <leader>ro :action OptimizeImports<CR>
+
+" Center cursor when jumping up/down
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
