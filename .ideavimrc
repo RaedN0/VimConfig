@@ -16,6 +16,7 @@ set incsearch
 set hlsearch
 
 set visualbell
+set peekaboo
 
 " Use system clipboard
 set clipboard+=unnamed
@@ -37,8 +38,6 @@ set incsearch
 "" Key mappings
 "" ========================================================
 
-imap jk <Esc>
-
 " Popup navigation
 inoremap <C-j> <Action>(PopupMenu-selectNext)
 inoremap <C-k> <Action>(PopupMenu-selectPrev)
@@ -47,13 +46,18 @@ inoremap <C-k> <Action>(PopupMenu-selectPrev)
 "" ========================================================
 
 " Jump to declaration of object under cursor
-nnoremap <leader>gd :action GotoDeclaration<CR>
+nnoremap gd :action GotoDeclaration<CR>
+
+" Search for files
+nnoremap <leader><space> :action FindFile<CR>
+
+" Search in files (project-wide)
+nnoremap <leader>sg :action FindInPath<CR>
 
 " I use those for tests
 " Run tests depending on cursor position
-nnoremap <leader>ta :action RunClass<CR>
+nnoremap <leader>tt :action RunClass<CR>
 nnoremap <leader>tf :action RerunFailedTests<CR>
-" Rerun last tests even when in another file
 nnoremap <leader>tl :action Rerun<CR>
 
 " Jump to tab by number
@@ -67,9 +71,7 @@ nmap <leader>7 <Action>(GoToTab7)
 nmap <leader>8 <Action>(GoToTab8)
 nmap <leader>9 <Action>(GoToTab9)
 
-" Use gcc in normal mode to comment current line
 nnoremap gcc :action CommentByLineComment<CR>
-" Use gc in visual mode to comment out selected lines
 vnoremap gc :action CommentByLineComment<CR>
 
 " Move between files in split views
@@ -80,24 +82,24 @@ nnoremap <c-k> <c-w>k
 
 " Yank into black hole register by default (no more clipboard modifying when
 " deleting stuff)
-nnoremap x "_x
-nnoremap d "_d
-nnoremap dd "_dd
-nnoremap D "_D
-vnoremap d "_d
-nnoremap c "_c
-vnoremap c "_c
+" nnoremap x "_x
+" nnoremap d "_d
+" nnoremap dd "_dd
+" nnoremap D "_D
+" vnoremap d "_d
+" nnoremap c "_c
+" vnoremap c "_c
 " Since we now have no way to cut because of the settings above we
 " change the s to cut
-nnoremap s d
-vnoremap s d
-nnoremap ss dd
-nnoremap S D
-vnoremap p "_dP
+" nnoremap s d
+" vnoremap s d
+" nnoremap ss dd
+" nnoremap S D
+" vnoremap p "_dP
 
 " Go to next / previous tab
-nmap <leader>l <Action>(NextTab)
-nmap <leader>h <Action>(PreviousTab)
+nmap <s-l> <Action>(NextTab)
+nmap <s-h> <Action>(PreviousTab)
 " Move tab position
 nmap <leader>< :tabm-1<CR>
 nmap <leader>> :tabm+1<CR>
@@ -106,12 +108,10 @@ nmap <leader>> :tabm+1<CR>
 nnoremap <leader>gp :action SelectInProjectView<CR>
 
 " Code actions
-" Rename element under cursor
-nmap <leader>rn <Action>(RenameElement)
-" Reformat current file
-nmap <leader>rc <Action>(ReformatCode)
-" Optimize imports in current file
-nnoremap <leader>ro :action OptimizeImports<CR>
+nmap <leader>cr <Action>(RenameElement)
+nmap <leader>cf <Action>(ReformatCode)
+nnoremap <leader>co :action OptimizeImports<CR>
+nnoremap <leader>ca :action ShowIntentionActions<CR>
 
 " Center cursor when jumping up/down
 nnoremap <C-d> <C-d>zz
